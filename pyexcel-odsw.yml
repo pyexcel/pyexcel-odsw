@@ -1,0 +1,8 @@
+overrides: "pyexcel.yaml"
+name: "pyexcel-odsw"
+nick_name: ""
+version: "0.0.1"
+current_version: "0.0.1"
+release: "0.0.1"
+dependencies: []
+description: "write an ods file using constant memory"
