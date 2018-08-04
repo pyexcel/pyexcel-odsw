@@ -1,8 +1,10 @@
 overrides: "pyexcel.yaml"
 name: "pyexcel-odsw"
-nick_name: ""
+nick_name: "odsw"
+file_type: "ods"
 version: "0.0.1"
 current_version: "0.0.1"
 release: "0.0.1"
-dependencies: []
+dependencies:
+  - loxun
 description: "write an ods file using constant memory"

@@ -7,13 +7,13 @@
 """
 from ._version import __version__, __author__  # flake8: noqa
 from pyexcel_io.plugins import IOPluginInfoChain
-from pyexcel_io.io isstream, store_data as write_data
+from pyexcel_io.io import isstream, store_data as write_data
 
 
 __FILE_TYPE__ = 'ods'
 
 IOPluginInfoChain(__name__).add_a_writer(
-    relative_plugin_class_path='w.ODSWriter',
+    relative_plugin_class_path='odsw.ODSWriter',
     file_types=[__FILE_TYPE__],
     stream_type='binary'
 )
