@@ -13,7 +13,7 @@ from pyexcel_io.book import BookWriter
 from pyexcel_io.sheet import SheetWriter
 from pyexcel_io._compact import text_type
 
-import entrouvert_odsw as ods
+import pyexcel_odsw.entrouvert_odsw as ods
 
 
 class ODSSheetWriter(SheetWriter):
@@ -45,7 +45,6 @@ class ODSSheetWriter(SheetWriter):
         """
         write a row into the file
         """
-        import pdb; pdb.set_trace()
         cells = []
         for cell in array:
             try:
