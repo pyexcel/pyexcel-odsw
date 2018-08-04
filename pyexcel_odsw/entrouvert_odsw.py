@@ -19,6 +19,7 @@ import tempfile
 import zipfile
 
 import loxun
+from pyexcel_io._compact import text_type as unicode
 
 
 OFFICE_NS = 'urn:oasis:names:tc:opendocument:xmlns:office:1.0'
