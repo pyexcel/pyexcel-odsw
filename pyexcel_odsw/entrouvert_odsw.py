@@ -82,6 +82,7 @@ class ODSWorkbook(object):
         xml.endTag()
         xml.endTag()
         xml.endTag()
+        self.content.file.flush()
         self.z.write(self.content.name, 'content.xml')
         self.content.close()
         self.z.close()
