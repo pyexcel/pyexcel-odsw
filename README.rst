@@ -11,17 +11,9 @@ pyexcel-odsw - Let you focus on data, instead of file formats
 .. image:: https://codecov.io/gh/pyexcel/pyexcel-odsw/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/pyexcel/pyexcel-odsw
 
-.. image:: https://badge.fury.io/py/pyexcel-odsw.svg
-   :target: https://pypi.org/project/pyexcel-odsw
 
-.. image:: https://anaconda.org/conda-forge/pyexcel-odsw/badges/version.svg
-   :target: https://anaconda.org/conda-forge/pyexcel-odsw
 
-.. image:: https://pepy.tech/badge/pyexcel-odsw/month
-   :target: https://pepy.tech/project/pyexcel-odsw/month
 
-.. image:: https://anaconda.org/conda-forge/pyexcel-odsw/badges/downloads.svg
-   :target: https://anaconda.org/conda-forge/pyexcel-odsw
 
 .. image:: https://img.shields.io/gitter/room/gitterHQ/gitter.svg
    :target: https://gitter.im/pyexcel/Lobby
