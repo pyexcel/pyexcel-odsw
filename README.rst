@@ -56,15 +56,7 @@ Introduction
 
 Installation
 ================================================================================
-
-You can install pyexcel-odsw via pip:
-
-.. code-block:: bash
-
-    $ pip install pyexcel-odsw
-
-
-or clone it and install it:
+You can get it:
 
 .. code-block:: bash
 
