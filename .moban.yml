@@ -1,20 +1,23 @@
 configuration:
-  configuration_dir: "commons/config"
+  configuration_dir: "git://github.com/pyexcel/pyexcel-mobans!/config"
   template_dir:
-  - "commons/templates"
-  - "setupmobans/templates"
+  - "git://github.com/moremoban/pypi-mobans.git?branch=dev&submodule=true!/templates"
+  - "git://github.com/pyexcel/pyexcel-mobans.git!/templates"
+  - "git://github.com/pyexcel/pyexcel-mobans.git!/statics"
   - ".moban.d"
   configuration: pyexcel-odsw.yml
 targets:
-  - README.rst: README.rst
-  - setup.py: setup.py
-  - requirements.txt: requirements.txt
+  - README.rst: odsw-README.rst.jj2
+  - setup.py: custom-setup.py.jj2
+  - requirements.txt: custom-requirements.txt.jj2
   - LICENSE: NEW_BSD_LICENSE.jj2
   - MANIFEST.in: MANIFEST.in.jj2
-  - "tests/requirements.txt": "tests/requirements.txt"
+  - "tests/requirements.txt": "tests/custom-requirements.txt.jj2"
   - test.sh: test.script.jj2
   - test.bat: test.script.jj2
   - .travis.yml: custom_travis.yml.jj2
   - .gitignore: gitignore.jj2
   - "docs/source/conf.py": "docs/source/conf.py.jj2"
   - "pyexcel_odsw/_version.py": version.py.jj2
+  - ".github/FUNDING.yml": "FUNDING.yml"
+  - ".github/PULL_REQUEST_TEMPLATE.md": PULL_REQUEST_TEMPLATE.md

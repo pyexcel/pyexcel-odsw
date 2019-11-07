@@ -19,6 +19,7 @@ import tempfile
 import zipfile
 
 import loxun
+import pyexcel_io.service as converter
 from pyexcel_io._compact import text_type as unicode
 
 
@@ -129,9 +130,11 @@ class ODSWorkbook(object):
 
     def add_cell(self, content, hint=None):
         assert self.status == self.INROW
-        content = unicode(content)
+        cell_type = type(content)
+        cell_odf_value_type = converter.ODS_WRITE_FORMAT_COVERSION.get(
+            cell_type, "string")
         self.xmlwriter.startTag('table:table-cell', {
-            'office:value-type': 'string',
+            'office:value-type': cell_odf_value_type
         })
         self.xmlwriter.startTag('text:p')
         attribs = {}
