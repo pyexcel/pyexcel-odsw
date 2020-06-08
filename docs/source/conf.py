@@ -22,7 +22,7 @@ DESCRIPTION = (
 # -- Project information -----------------------------------------------------
 
 project = 'pyexcel-odsw'
-copyright = ' Onni Software Ltd.'
+copyright = '2015-2019 Onni Software Ltd.'
 author = 'C.W.'
 # The short X.Y version
 version = '0.0.1'
@@ -83,3 +83,4 @@ texinfo_documents = [
 intersphinx_mapping.update({
     'pyexcel': ('http://pyexcel.readthedocs.io/en/latest/', None),
 })
+master_doc = "index"
