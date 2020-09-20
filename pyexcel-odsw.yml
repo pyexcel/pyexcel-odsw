@@ -7,4 +7,7 @@ current_version: "0.0.1"
 release: "0.0.0"
 dependencies:
   - loxun
+test_dependencies:
+  - pyexcel
+  - pyexcel-ods3
 description: "write an ods file using constant memory"
