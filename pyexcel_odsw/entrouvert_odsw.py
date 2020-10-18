@@ -22,12 +22,11 @@ import loxun
 import pyexcel_io.service as converter
 from pyexcel_io._compact import text_type as unicode
 
-
-OFFICE_NS = 'urn:oasis:names:tc:opendocument:xmlns:office:1.0'
-TABLE_NS = 'urn:oasis:names:tc:opendocument:xmlns:table:1.0'
-TEXT_NS = 'urn:oasis:names:tc:opendocument:xmlns:text:1.0'
-XLINK_NS = 'http://www.w3.org/1999/xlink'
-STYLE_NS = 'urn:oasis:names:tc:opendocument:xmlns:style:1.0'
+OFFICE_NS = "urn:oasis:names:tc:opendocument:xmlns:office:1.0"
+TABLE_NS = "urn:oasis:names:tc:opendocument:xmlns:table:1.0"
+TEXT_NS = "urn:oasis:names:tc:opendocument:xmlns:text:1.0"
+XLINK_NS = "http://www.w3.org/1999/xlink"
+STYLE_NS = "urn:oasis:names:tc:opendocument:xmlns:style:1.0"
 
 
 class ODSWorkbook(object):
@@ -37,43 +36,57 @@ class ODSWorkbook(object):
     INROW = 4
 
     def __init__(self, output):
-        z = self.z = zipfile.ZipFile(output, 'w')
-        z.writestr('mimetype', 'application/vnd.oasis.opendocument.spreadsheet')
-        z.writestr('META-INF/manifest.xml', '''<?xml version="1.0" encoding="UTF-8"?>
+        z = self.z = zipfile.ZipFile(output, "w")
+        z.writestr(
+            "mimetype", "application/vnd.oasis.opendocument.spreadsheet"
+        )
+        z.writestr(
+            "META-INF/manifest.xml",
+            """<?xml version="1.0" encoding="UTF-8"?>
 <manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0">
  <manifest:file-entry manifest:full-path="/" manifest:media-type="application/vnd.oasis.opendocument.spreadsheet"/>
  <manifest:file-entry manifest:full-path="styles.xml" manifest:media-type="text/xml"/>
  <manifest:file-entry manifest:full-path="content.xml" manifest:media-type="text/xml"/>
  <manifest:file-entry manifest:full-path="META-INF/manifest.xml" manifest:media-type="text/xml"/>
  <manifest:file-entry manifest:full-path="mimetype" manifest:media-type="text/plain"/>
-</manifest:manifest>''')
-        z.writestr('styles.xml', '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+</manifest:manifest>""",
+        )
+        z.writestr(
+            "styles.xml",
+            """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <office:document-styles xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0">
-</office:document-styles>''')
+</office:document-styles>""",
+        )
         self.content = tempfile.NamedTemporaryFile()
         xml = self.xmlwriter = loxun.XmlWriter(self.content, pretty=False)
-        xml.addNamespace('office', OFFICE_NS)
-        xml.addNamespace('style', STYLE_NS)
-        xml.addNamespace('table', TABLE_NS)
-        xml.addNamespace('xlink', XLINK_NS)
-        xml.addNamespace('text', TEXT_NS)
+        xml.addNamespace("office", OFFICE_NS)
+        xml.addNamespace("style", STYLE_NS)
+        xml.addNamespace("table", TABLE_NS)
+        xml.addNamespace("xlink", XLINK_NS)
+        xml.addNamespace("text", TEXT_NS)
         # add bold style for headers
-        xml.startTag('office:document-content')
-        xml.startTag('office:automatic-styles')
-        xml.startTag('style:style', {
-            'style:family': 'paragraph',
-            'style:name': 'bold',
-            'style:display-name': 'bold',
-        })
-        xml.tag('style:text-properties', {
-            'style:font-weight-complex': 'bold',
-            'style:font-weight': 'bold',
-            'style:font-weight-asian': 'bold'
-        })
+        xml.startTag("office:document-content")
+        xml.startTag("office:automatic-styles")
+        xml.startTag(
+            "style:style",
+            {
+                "style:family": "paragraph",
+                "style:name": "bold",
+                "style:display-name": "bold",
+            },
+        )
+        xml.tag(
+            "style:text-properties",
+            {
+                "style:font-weight-complex": "bold",
+                "style:font-weight": "bold",
+                "style:font-weight-asian": "bold",
+            },
+        )
         xml.endTag()
         xml.endTag()
-        xml.startTag('office:body')
-        xml.startTag('office:spreadsheet')
+        xml.startTag("office:body")
+        xml.startTag("office:spreadsheet")
         self.status = self.OPENED
 
     def close(self):
@@ -83,7 +96,7 @@ class ODSWorkbook(object):
         xml.endTag()
         xml.endTag()
         xml.endTag()
-        self.z.write(self.content.name, 'content.xml')
+        self.z.write(self.content.name, "content.xml")
         self.content.close()
         self.z.close()
         del self.z
@@ -96,10 +109,10 @@ class ODSWorkbook(object):
         xml = self.xmlwriter
         attribs = {}
         if title:
-            attribs['table:name'] = title
-        xml.startTag('table:table', attribs)
+            attribs["table:name"] = title
+        xml.startTag("table:table", attribs)
         for i in range(columns):
-            xml.tag('table:table-column')
+            xml.tag("table:table-column")
 
     def end_sheet(self):
         assert self.status == self.INSHEET
@@ -107,10 +120,14 @@ class ODSWorkbook(object):
         self.xmlwriter.endTag()
 
     def add_headers(self, headers):
-        self.add_row(headers, {
-            'table:style-name': 'bold',
-            'table:default-cell-style-name': 'bold',
-        }, hint='header')
+        self.add_row(
+            headers,
+            {
+                "table:style-name": "bold",
+                "table:default-cell-style-name": "bold",
+            },
+            hint="header",
+        )
 
     def add_row(self, row, attribs={}, hint=None):
         self.start_row(attribs)
@@ -121,7 +138,7 @@ class ODSWorkbook(object):
     def start_row(self, attribs={}):
         assert self.status == self.INSHEET
         self.status = self.INROW
-        self.xmlwriter.startTag('table:table-row', attribs)
+        self.xmlwriter.startTag("table:table-row", attribs)
 
     def end_row(self):
         assert self.status == self.INROW
@@ -132,22 +149,23 @@ class ODSWorkbook(object):
         assert self.status == self.INROW
         cell_type = type(content)
         cell_odf_value_type = converter.ODS_WRITE_FORMAT_COVERSION.get(
-            cell_type, "string")
-        self.xmlwriter.startTag('table:table-cell', {
-            'office:value-type': cell_odf_value_type
-        })
-        self.xmlwriter.startTag('text:p')
+            cell_type, "string"
+        )
+        self.xmlwriter.startTag(
+            "table:table-cell", {"office:value-type": cell_odf_value_type}
+        )
+        self.xmlwriter.startTag("text:p")
         attribs = {}
-        if hint == 'header':
-            attribs['text:style-name'] = 'bold'
-        self.xmlwriter.startTag('text:span', attribs)
+        if hint == "header":
+            attribs["text:style-name"] = "bold"
+        self.xmlwriter.startTag("text:span", attribs)
         self.xmlwriter.text(content)
         self.xmlwriter.endTag()
         self.xmlwriter.endTag()
         self.xmlwriter.endTag()
 
     def __del__(self):
-        if getattr(self, 'content', None) is not None:
+        if getattr(self, "content", None) is not None:
             try:
                 self.content.close()
             except:

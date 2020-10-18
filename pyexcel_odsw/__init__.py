@@ -5,17 +5,18 @@
     :copyright: (c) 2018 by Onni Software & its contributors
     :license: New BSD License
 """
-from ._version import __version__, __author__  # flake8: noqa
+from pyexcel_io.io import isstream
+from pyexcel_io.io import store_data as write_data
 from pyexcel_io.plugins import IOPluginInfoChain
-from pyexcel_io.io import isstream, store_data as write_data
 
+from ._version import __author__, __version__  # flake8: noqa
 
-__FILE_TYPE__ = 'ods'
+__FILE_TYPE__ = "ods"
 
 IOPluginInfoChain(__name__).add_a_writer(
-    relative_plugin_class_path='odsw.ODSWriter',
+    relative_plugin_class_path="odsw.ODSWriter",
     file_types=[__FILE_TYPE__],
-    stream_type='binary'
+    stream_type="binary",
 )
 
 
