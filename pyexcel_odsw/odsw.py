@@ -9,9 +9,9 @@
 """
 import types
 
+from pyexcel_io._compact import text_type
 from pyexcel_io.book import BookWriter
 from pyexcel_io.sheet import SheetWriter
-from pyexcel_io._compact import text_type
 
 import pyexcel_odsw.entrouvert_odsw as ods
 
@@ -20,9 +20,11 @@ class ODSSheetWriter(SheetWriter):
     """
     ods sheet writer
     """
+
     def __init__(self, native_book, name, **keywords):
         super(ODSSheetWriter, self).__init__(
-            native_book, None, name, **keywords)
+            native_book, None, name, **keywords
+        )
         self.sheet_name = name
 
     def set_sheet_name(self, name):
@@ -36,8 +38,7 @@ class ODSSheetWriter(SheetWriter):
         if rows < 1:
             return
         columns = max([len(row) for row in to_write_data])
-        self._native_book.start_sheet(columns,
-                                      self.sheet_name)
+        self._native_book.start_sheet(columns, self.sheet_name)
         super(ODSSheetWriter, self).write_array(to_write_data)
         self._native_book.end_sheet()
 
@@ -61,6 +62,7 @@ class ODSWriter(BookWriter):
     """
     ods writer
     """
+
     def __init__(self):
         BookWriter.__init__(self)
         self._native_book = None
@@ -72,8 +74,7 @@ class ODSWriter(BookWriter):
         self._native_book = ods.ODSWorkbook(file_name)
 
     def create_sheet(self, name):
-        return ODSSheetWriter(self._native_book,
-                              name)
+        return ODSSheetWriter(self._native_book, name)
 
     def close(self):
         """
